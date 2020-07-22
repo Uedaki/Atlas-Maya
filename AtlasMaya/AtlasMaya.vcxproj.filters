@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="dll">
+      <UniqueIdentifier>{3e36aaeb-a853-445d-9e80-ebf403f14afa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{53f2b22d-a8c3-43c6-882a-0b765afbe689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{4a44d604-4740-4209-a78b-76d0da7d802d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Shading">
+      <UniqueIdentifier>{05180198-0c00-4718-8592-823c60c4a50a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Shading\Shaders">
+      <UniqueIdentifier>{0b93ef87-08f9-45a2-83c4-692967a48461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Shading">
+      <UniqueIdentifier>{5a422bf9-9eb7-4c28-9d83-dd50bfe00b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Shading\Shaders">
+      <UniqueIdentifier>{66340206-3d67-49e5-a39e-777e9e9df348}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>dll</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>dll</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderProcedure.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MayaShaderNetworkBuilder.h">
+      <Filter>Fichiers d%27en-tête\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="DisneyShaderNode.h">
+      <Filter>Fichiers d%27en-tête\Shading\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DisneyShaderSurface.h">
+      <Filter>Fichiers d%27en-tête\Shading\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Trash.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>dll</Filter>
+    </ClCompile>
+    <ClCompile Include="mainPlugin.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderProcedure.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MayaShaderNetworkBuilder.cpp">
+      <Filter>Fichiers sources\Shading</Filter>
+    </ClCompile>
+    <ClCompile Include="DisneyShaderNode.cpp">
+      <Filter>Fichiers sources\Shading\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="DisneyShaderSurface.cpp">
+      <Filter>Fichiers sources\Shading\Shaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config\atlasmaya.mod">
+      <Filter>Configuration</Filter>
+    </None>
+    <None Include="scripts\__init__.py">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\register.py">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\rendering.py">
+      <Filter>Scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

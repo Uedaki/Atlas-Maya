@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Atlas", "Atlas\Atlas.vcxproj", "{ACD2DA5C-7D8C-46A5-BEF7-A6EC8C6ADAE4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlasMaya", "AtlasMaya\AtlasMaya.vcxproj", "{2B715885-DE48-4BC9-9472-BD8FEAA7D6DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACD2DA5C-7D8C-46A5-BEF7-A6EC8C6ADAE4}.Debug|x64.ActiveCfg = Debug|x64
+		{ACD2DA5C-7D8C-46A5-BEF7-A6EC8C6ADAE4}.Debug|x64.Build.0 = Debug|x64
+		{ACD2DA5C-7D8C-46A5-BEF7-A6EC8C6ADAE4}.Release|x64.ActiveCfg = Release|x64
+		{ACD2DA5C-7D8C-46A5-BEF7-A6EC8C6ADAE4}.Release|x64.Build.0 = Release|x64
+		{2B715885-DE48-4BC9-9472-BD8FEAA7D6DF}.Debug|x64.ActiveCfg = Debug|x64
+		{2B715885-DE48-4BC9-9472-BD8FEAA7D6DF}.Debug|x64.Build.0 = Debug|x64
+		{2B715885-DE48-4BC9-9472-BD8FEAA7D6DF}.Release|x64.ActiveCfg = Release|x64
+		{2B715885-DE48-4BC9-9472-BD8FEAA7D6DF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03C6A8C9-E1C0-42C9-BBEB-1F2AC38C3C9F}
+	EndGlobalSection
+EndGlobal
