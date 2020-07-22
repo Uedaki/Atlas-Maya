@@ -230,6 +230,7 @@ xcopy /d /s /i /f /y "$(ATLAS_BIN_PATH)\Atlas.dll" "$(SolutionDir)a.out\$(Projec
   </ItemGroup>
   <ItemGroup>
     <None Include="config\atlasmaya.mod" />
+    <None Include="scripts\menu.py" />
     <None Include="scripts\register.py" />
     <None Include="scripts\rendering.py" />
     <None Include="scripts\__init__.py" />

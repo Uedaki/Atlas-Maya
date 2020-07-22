@@ -35,7 +35,6 @@ namespace
 
 MStatus initializePlugin(MObject obj)
 {
-    std::cout << "Start" << std::endl;
 	MStatus status;
 	MFnPlugin plugin(obj, "Atlas", "0.1", "any", &status);
 	if (status != MS::kSuccess)
@@ -43,78 +42,79 @@ MStatus initializePlugin(MObject obj)
 		CHECK_MSTATUS(status);
 		return (status);
 	}
-    std::cout << "--------> 1" << std::endl;
+
 	CHECK_MSTATUS(plugin.registerCommand(RenderProcedure::name, RenderProcedure::creator, RenderProcedure::createSyntax));
-    std::cout << "---------> 2" << std::endl;
+
 	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya"));
 	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.register; AtlasMaya.register.register()"));
-    std::cout << "-------> 3" << std::endl;
+	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.menu; AtlasMaya.menu.createMenu()"));
+
 	registerMaterial<DisneyShaderNode, DisneyShaderSurface>(plugin);
 
-    MStatus stat = plugin.registerShape("apiPointLightShape", apiPointLightShape::id,
-        &apiPointLightShape::creator,
-        &apiPointLightShape::initialize,
-        NULL,
-        &apiPointLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiPointLightShape\n";
-    }
-    stat = plugin.registerShape("apiDirectionalLightShape", apiDirectionalLightShape::id,
-        &apiDirectionalLightShape::creator,
-        &apiDirectionalLightShape::initialize,
-        NULL,
-        &apiDirectionalLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiDirectionalLightShape\n";
-    }
-    stat = plugin.registerShape("apiSpotLightShape", apiSpotLightShape::id,
-        &apiSpotLightShape::creator,
-        &apiSpotLightShape::initialize,
-        NULL,
-        &apiSpotLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiSpotLightShape\n";
-    }
-    stat = plugin.registerShape("apiAreaLightShape", apiAreaLightShape::id,
-        &apiAreaLightShape::creator,
-        &apiAreaLightShape::initialize,
-        NULL,
-        &apiAreaLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiAreaLightShape\n";
-    }
-    stat = plugin.registerShape("apiImageLightShape", apiImageLightShape::id,
-        &apiImageLightShape::creator,
-        &apiImageLightShape::initialize,
-        NULL,
-        &apiImageLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiImageLightShape\n";
-    }
-    //
-    // Note: We add use "drawdb/geometry/light/directionalLightCustom" to match
-    // one of the classifications used for apiCustomDirectionalLightShape.
-    // 
-    stat = MHWRender::MDrawRegistry::registerGeometryOverrideCreator("drawdb/geometry/light/directionalLightCustom",
-        "directionalLightRegistrantId",
-        apiDirectionalLightShape_GeometryOverride::Creator);
-    if (!stat) {
-        cerr << "Failed to register apiDirectionalLightShape_GeometryOverride\n";
-        return stat;
-    }
-    //
-    // Note: apiCustomDirectionalLightShape drawdbIdentifier() returns both the lighting and
-    // the geometry override classification: "drawdb/geometry/light/directionalLightCustom"
-    // allowing for the custom geometry override to replace the default light drawing.
-    //
-    stat = plugin.registerShape("apiCustomDirectionalLightShape", apiCustomDirectionalLightShape::id,
-        &apiCustomDirectionalLightShape::creator,
-        &apiCustomDirectionalLightShape::initialize,
-        NULL,
-        &apiCustomDirectionalLightShape::drawdbIdentfier());
-    if (!stat) {
-        cerr << "Failed to register apiCustomDirectionalLightShape\n";
-    }
+    //MStatus stat = plugin.registerShape("apiPointLightShape", apiPointLightShape::id,
+    //    &apiPointLightShape::creator,
+    //    &apiPointLightShape::initialize,
+    //    NULL,
+    //    &apiPointLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiPointLightShape\n";
+    //}
+    //stat = plugin.registerShape("apiDirectionalLightShape", apiDirectionalLightShape::id,
+    //    &apiDirectionalLightShape::creator,
+    //    &apiDirectionalLightShape::initialize,
+    //    NULL,
+    //    &apiDirectionalLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiDirectionalLightShape\n";
+    //}
+    //stat = plugin.registerShape("apiSpotLightShape", apiSpotLightShape::id,
+    //    &apiSpotLightShape::creator,
+    //    &apiSpotLightShape::initialize,
+    //    NULL,
+    //    &apiSpotLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiSpotLightShape\n";
+    //}
+    //stat = plugin.registerShape("apiAreaLightShape", apiAreaLightShape::id,
+    //    &apiAreaLightShape::creator,
+    //    &apiAreaLightShape::initialize,
+    //    NULL,
+    //    &apiAreaLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiAreaLightShape\n";
+    //}
+    //stat = plugin.registerShape("apiImageLightShape", apiImageLightShape::id,
+    //    &apiImageLightShape::creator,
+    //    &apiImageLightShape::initialize,
+    //    NULL,
+    //    &apiImageLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiImageLightShape\n";
+    //}
+    ////
+    //// Note: We add use "drawdb/geometry/light/directionalLightCustom" to match
+    //// one of the classifications used for apiCustomDirectionalLightShape.
+    //// 
+    //stat = MHWRender::MDrawRegistry::registerGeometryOverrideCreator("drawdb/geometry/light/directionalLightCustom",
+    //    "directionalLightRegistrantId",
+    //    apiDirectionalLightShape_GeometryOverride::Creator);
+    //if (!stat) {
+    //    cerr << "Failed to register apiDirectionalLightShape_GeometryOverride\n";
+    //    return stat;
+    //}
+    ////
+    //// Note: apiCustomDirectionalLightShape drawdbIdentifier() returns both the lighting and
+    //// the geometry override classification: "drawdb/geometry/light/directionalLightCustom"
+    //// allowing for the custom geometry override to replace the default light drawing.
+    ////
+    //stat = plugin.registerShape("apiCustomDirectionalLightShape", apiCustomDirectionalLightShape::id,
+    //    &apiCustomDirectionalLightShape::creator,
+    //    &apiCustomDirectionalLightShape::initialize,
+    //    NULL,
+    //    &apiCustomDirectionalLightShape::drawdbIdentfier());
+    //if (!stat) {
+    //    cerr << "Failed to register apiCustomDirectionalLightShape\n";
+    //}
 
 	std::cout << "Module Loaded" << std::endl;
 	return (MS::kSuccess);
@@ -124,7 +124,7 @@ MStatus uninitializePlugin(MObject obj)
 {
 	MFnPlugin plugin(obj);
 
-    MStatus stat;
+  /*  MStatus stat;
     stat = plugin.deregisterNode(apiPointLightShape::id);
     if (!stat) {
         cerr << "Failed to deregister apiPointLightShape\n";
@@ -154,13 +154,14 @@ MStatus uninitializePlugin(MObject obj)
     if (!stat) {
         cerr << "Failed to deregister apiCustomDirectionalLightShape\n";
     }
-    
+    */
     
     CHECK_MSTATUS(plugin.deregisterCommand(RenderProcedure::name));
 
 	deregisterMaterial<DisneyShaderNode, DisneyShaderSurface>(plugin);
 
 	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.register; AtlasMaya.register.unregister()"));
+	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.menu; AtlasMaya.menu.deleteMenu()"));
 
     std::cout << "---------------UNLOADED-----------" << std::endl;
 
