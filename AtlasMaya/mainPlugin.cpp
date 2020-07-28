@@ -9,6 +9,7 @@
 #include "DisneyShaderSurface.h"
 #include "RenderProcedure.h"
 
+#include "Logger.h"
 #include "MayaAreaLight.h"
 
 namespace
@@ -52,6 +53,8 @@ namespace
 
 MStatus initializePlugin(MObject obj)
 {
+	LOG_INFO("Loading plugin Atlas...");
+
 	MStatus status;
 	MFnPlugin plugin(obj, "Atlas", "0.1", "any", &status);
 	if (status != MS::kSuccess)
@@ -70,12 +73,15 @@ MStatus initializePlugin(MObject obj)
 
 	registerLight<AreaLightNode, AreaLightGeometry>(plugin);
 
-	std::cout << "Module Loaded" << std::endl;
+	LOG_INFO("Plugin loaded successfully");
+
 	return (MS::kSuccess);
 }
 
 MStatus uninitializePlugin(MObject obj)
 {
+	LOG_INFO("Plugin Atlas unloaded");
+
 	MFnPlugin plugin(obj);
 
     CHECK_MSTATUS(plugin.deregisterCommand(RenderProcedure::name));
@@ -86,8 +92,6 @@ MStatus uninitializePlugin(MObject obj)
 
 	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.register; AtlasMaya.register.unregister()"));
 	CHECK_MSTATUS(MGlobal::executePythonCommand("import AtlasMaya.menu; AtlasMaya.menu.deleteMenu()"));
-
-    std::cout << "---------------UNLOADED-----------" << std::endl;
 
 	return (MS::kSuccess);
 }

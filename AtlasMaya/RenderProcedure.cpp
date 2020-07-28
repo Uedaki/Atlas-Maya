@@ -14,6 +14,8 @@
 #include "MayaNodeId.h"
 #include "MayaAreaLight.h"
 
+#include "Logger.h"
+
 const char *RenderProcedure::name = "AtlasRenderProcedure";
 
 void *RenderProcedure::creator()
@@ -32,63 +34,71 @@ MSyntax RenderProcedure::createSyntax()
 
 MStatus RenderProcedure::doIt(const MArgList &args)
 {
-	std::cout << "RenderProcedure::doIt" << std::endl;
-	
-	int width = 1;
-	int height = 1;
-	MString mCameraName;
+	LOG_DEBUG("Executing command " + std::string(__FUNCTION__));
 
-	MArgDatabase argsData(createSyntax(), args);
-	if (!argsData.isFlagSet("-width")
-		|| !argsData.isFlagSet("-height")
-		|| !argsData.isFlagSet("-camera"))
+	try
 	{
-		std::cout << "Wrong number of argument passed to render procedure" << std::endl;
-		return (MS::kFailure);
+		int width = 1;
+		int height = 1;
+		MString mCameraName;
+
+		MArgDatabase argsData(createSyntax(), args);
+		if (!argsData.isFlagSet("-width")
+			|| !argsData.isFlagSet("-height")
+			|| !argsData.isFlagSet("-camera"))
+		{
+			std::cout << "Wrong number of argument passed to render procedure" << std::endl;
+			return (MS::kFailure);
+		}
+
+		argsData.getFlagArgument("-width", 0, width);
+		argsData.getFlagArgument("-height", 0, height);
+		argsData.getFlagArgument("-camera", 0, mCameraName);
+
+		std::cout << "width: " << width << " height: " << height << " camera: " << mCameraName << std::endl;
+
+		atlas::ShaderNetwork network;
+		MayaShaderNetworkBuilder networkBuilder(network);
+
+		for (MItDag it; !it.isDone(); it.next())
+		{
+			MObject obj = it.currentItem();
+
+
+			std::cout << "Object: " << obj.apiTypeStr() << std::endl;
+			if (obj.apiType() == MFn::kMesh)
+			{
+				MFnMesh mesh(obj);
+				std::cout << "- name: " << mesh.name() << std::endl;
+
+				MObjectArray mShaderArray;
+				MIntArray mShaderIndices;
+				mesh.getConnectedShaders(0, mShaderArray, mShaderIndices);
+				//	std::cout << "nbr face " << mesh.numPolygons() << " nbr indice " << mShaderIndices.length() << std::endl;
+				for (uint32_t i = 0; i < mShaderArray.length(); i++)
+				{
+					size_t gra = networkBuilder.buildGraph(mShaderArray[i]);
+					glm::vec3 c = network.sampleGraph(gra);
+					std::cout << "output color (" << c.x << ", " << c.y << ", " << c.z << ")" << std::endl;
+
+				}
+			}
+			else
+			{
+				MFnDependencyNode itNode(obj);
+
+				if (itNode.typeId().id() == MayaNodeId::AREA_LIGHT)
+				{
+					atlas::AreaLight l;
+					AreaLightNode::fetchAttribute(itNode, l);
+				}
+			}
+		}
 	}
-
-	argsData.getFlagArgument("-width", 0, width);
-	argsData.getFlagArgument("-height", 0, height);
-	argsData.getFlagArgument("-camera", 0, mCameraName);
-
-	std::cout << "width: " << width << " height: " << height << " camera: " << mCameraName << std::endl;
-
-	atlas::ShaderNetwork network;
-	MayaShaderNetworkBuilder networkBuilder(network);
-
-	for (MItDag it; !it.isDone(); it.next())
+	catch (Exception &e)
 	{
-		MObject obj = it.currentItem();
-
-
-		std::cout << "Object: " << obj.apiTypeStr() << std::endl;
-		if (obj.apiType() == MFn::kMesh)
-		{
-			MFnMesh mesh(obj);
-			std::cout << "- name: " << mesh.name() << std::endl;
-
-			MObjectArray mShaderArray;
-			MIntArray mShaderIndices;
-			mesh.getConnectedShaders(0, mShaderArray, mShaderIndices);
-		//	std::cout << "nbr face " << mesh.numPolygons() << " nbr indice " << mShaderIndices.length() << std::endl;
-			for (uint32_t i = 0; i < mShaderArray.length(); i++)
-			{
-				size_t gra = networkBuilder.buildGraph(mShaderArray[i]);
-				glm::vec3 c = network.sampleGraph(gra);
-				std::cout << "output color (" << c.x << ", " << c.y << ", " << c.z << ")" << std::endl;
-
-			}
-		}
-		else
-		{
-			MFnDependencyNode itNode(obj);
-
-			if (itNode.typeId().id() == MayaNodeId::AREA_LIGHT)
-			{
-				atlas::AreaLight l;
-				AreaLightNode::fetchAttribute(itNode, l);
-			}
-		}
+		LOG_EXCEPTION(e);
+		return (MS::kFailure);
 	}
 
 	return (MS::kSuccess);
