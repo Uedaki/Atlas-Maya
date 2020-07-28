@@ -54,7 +54,10 @@
     <ClInclude Include="DisneyShaderSurface.h">
       <Filter>Fichiers d%27en-tête\Shading\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Trash.h">
+    <ClInclude Include="MayaAreaLight.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MayaNodeId.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="DisneyShaderSurface.cpp">
       <Filter>Fichiers sources\Shading\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="MayaAreaLight.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

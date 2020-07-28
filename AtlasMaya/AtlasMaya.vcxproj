@@ -189,7 +189,7 @@ xcopy /d /s /i /f /y "$(ATLAS_BIN_PATH)\Atlas.dll" "$(SolutionDir)a.out\$(Projec
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(MAYA_DEV_KIT_PATH)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;adskIMF.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;adskIMF.lib;OpenMayaUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(MSBuildProjectName)-$(IntDir).log</Path>
@@ -206,19 +206,21 @@ xcopy /d /s /i /f /y "$(ATLAS_BIN_PATH)\Atlas.dll" "$(SolutionDir)a.out\$(Projec
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="MayaAreaLight.h" />
     <ClInclude Include="DisneyShaderNode.h" />
     <ClInclude Include="DisneyShaderSurface.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="MayaNodeId.h" />
     <ClInclude Include="MayaShaderNetworkBuilder.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderProcedure.h" />
-    <ClInclude Include="Trash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisneyShaderNode.cpp" />
     <ClCompile Include="DisneyShaderSurface.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="mainPlugin.cpp" />
+    <ClCompile Include="MayaAreaLight.cpp" />
     <ClCompile Include="MayaShaderNetworkBuilder.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

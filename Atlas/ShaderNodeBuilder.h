@@ -20,13 +20,13 @@ namespace atlas
 		ATLAS					ShaderNodeBuilder(ShaderNode &owner);
 		ATLAS void				registerAttribute(const std::string &name, ShaderAttribute &attribute);
 
-		ATLAS ShaderAttribute *getAttribute(const std::string &name);
+		ATLAS ShaderAttribute	*getAttribute(const std::string &name);
 
-		inline ShaderNode &getOwner() { return (owner); }
+		inline ShaderNode		&getOwner() { return (owner); }
 		inline const ShaderNode &getOwner() const { return (owner); }
 
 	private:
-		ShaderNode &owner;
-		std::map<std::string, ShaderAttribute &> attributes;
+		ShaderNode									&owner;
+		std::map<std::string, ShaderAttribute &>	attributes;
 	};
 }

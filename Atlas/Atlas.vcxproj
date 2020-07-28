@@ -164,8 +164,10 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AreaLight.h" />
     <ClInclude Include="DisneyShader.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ShaderAttribute.h" />
     <ClInclude Include="ShaderConstant.h" />

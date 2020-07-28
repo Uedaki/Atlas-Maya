@@ -3,8 +3,20 @@ import maya.mel as mel
 
 atlasMenu = None
 
+def createLocator(locatorType):
+    xformName = mc.createNode("transform", name=locatorType + "1")
+    shapeName = xformName.replace(locatorType, locatorType + "Shape")
+    return (xformName, mc.createNode(locatorType, name=shapeName, parent=xformName))
+
 def createAreaLight():
     print("Create area light")
+
+    (xform, shape) = createLocator('AtlasAreaLight')
+     #Add the locator to the light set.
+    mc.connectAttr(
+        xform + '.instObjGroups',
+        'defaultLightSet.dagSetMembers',
+        nextAvailable=True)
 
 def createMenu():
     global atlasMenu

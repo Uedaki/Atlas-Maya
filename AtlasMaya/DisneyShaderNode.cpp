@@ -7,8 +7,10 @@
 
 #include "Atlas/DisneyShader.h"
 
+#include "MayaNodeId.h"
+
 const MString DisneyShaderNode::name("AtlasDisneyMaterial");
-const MTypeId DisneyShaderNode::id(0x7f7f8);
+const MTypeId DisneyShaderNode::id(MayaNodeId::SHADER_DISNEY);
 
 MObject  DisneyShaderNode::aBaseColorR;
 MObject  DisneyShaderNode::aBaseColorG;

@@ -66,6 +66,12 @@
     <ClInclude Include="ShaderNodeBuilder.h">
       <Filter>Fichiers d%27en-tête\Shading\Builders</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="AreaLight.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

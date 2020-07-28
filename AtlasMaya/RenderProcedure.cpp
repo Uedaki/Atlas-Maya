@@ -11,6 +11,8 @@
 
 #include "Atlas/ShaderNetwork.h"
 #include "MayaShaderNetworkBuilder.h"
+#include "MayaNodeId.h"
+#include "MayaAreaLight.h"
 
 const char *RenderProcedure::name = "AtlasRenderProcedure";
 
@@ -27,7 +29,6 @@ MSyntax RenderProcedure::createSyntax()
 	syntax.addFlag("-c", "-camera", MSyntax::kString);
 	return (syntax);
 }
-
 
 MStatus RenderProcedure::doIt(const MArgList &args)
 {
@@ -58,7 +59,8 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 	for (MItDag it; !it.isDone(); it.next())
 	{
 		MObject obj = it.currentItem();
-		
+
+
 		std::cout << "Object: " << obj.apiTypeStr() << std::endl;
 		if (obj.apiType() == MFn::kMesh)
 		{
@@ -75,6 +77,16 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 				glm::vec3 c = network.sampleGraph(gra);
 				std::cout << "output color (" << c.x << ", " << c.y << ", " << c.z << ")" << std::endl;
 
+			}
+		}
+		else
+		{
+			MFnDependencyNode itNode(obj);
+
+			if (itNode.typeId().id() == MayaNodeId::AREA_LIGHT)
+			{
+				atlas::AreaLight l;
+				AreaLightNode::fetchAttribute(itNode, l);
 			}
 		}
 	}
