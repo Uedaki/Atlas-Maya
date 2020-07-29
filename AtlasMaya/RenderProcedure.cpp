@@ -34,8 +34,7 @@ MSyntax RenderProcedure::createSyntax()
 
 MStatus RenderProcedure::doIt(const MArgList &args)
 {
-	LOG_DEBUG("Executing command " + std::string(__FUNCTION__));
-
+	LOG_DEBUG("Executing command " << __FUNCTION__);
 	try
 	{
 		int width = 1;
@@ -47,7 +46,7 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 			|| !argsData.isFlagSet("-height")
 			|| !argsData.isFlagSet("-camera"))
 		{
-			std::cout << "Wrong number of argument passed to render procedure" << std::endl;
+			LOG_WARNING("Wrong number of argument passed to render procedure");
 			return (MS::kFailure);
 		}
 
@@ -55,7 +54,7 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 		argsData.getFlagArgument("-height", 0, height);
 		argsData.getFlagArgument("-camera", 0, mCameraName);
 
-		std::cout << "width: " << width << " height: " << height << " camera: " << mCameraName << std::endl;
+		LOG_DEBUG("width: " << width << " height: " << height << " camera: " << mCameraName);
 
 		atlas::ShaderNetwork network;
 		MayaShaderNetworkBuilder networkBuilder(network);
@@ -65,11 +64,11 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 			MObject obj = it.currentItem();
 
 
-			std::cout << "Object: " << obj.apiTypeStr() << std::endl;
+			LOG_DEBUG("Object: " << obj.apiTypeStr());
 			if (obj.apiType() == MFn::kMesh)
 			{
 				MFnMesh mesh(obj);
-				std::cout << "- name: " << mesh.name() << std::endl;
+				LOG_DEBUG("- name: " << mesh.name());
 
 				MObjectArray mShaderArray;
 				MIntArray mShaderIndices;
@@ -79,7 +78,7 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 				{
 					size_t gra = networkBuilder.buildGraph(mShaderArray[i]);
 					glm::vec3 c = network.sampleGraph(gra);
-					std::cout << "output color (" << c.x << ", " << c.y << ", " << c.z << ")" << std::endl;
+					LOG_DEBUG("output color (" << c.x << ", " << c.y << ", " << c.z << ")");
 
 				}
 			}

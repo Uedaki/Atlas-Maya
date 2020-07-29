@@ -5,15 +5,15 @@
 #include <Maya/MIOStream.h>
 
 #include "Exception.h"
-#include "Watch.h"
+#include "Stopwatch.h"
 
-#define LOG_INFO(msg) Logger::get().write(Logger::Type::INFO, msg)
-#define LOG_WARNING(msg) Logger::get().write(Logger::Type::WARNING, msg)
-#define LOG_CRITICAL(msg) Logger::get().write(Logger::Type::CRITICAL, msg)
+#define LOG_INFO(msg) Logger::get().write2(Logger::Type::INFO, std::ostringstream() << msg)
+#define LOG_WARNING(msg) Logger::get().write2(Logger::Type::WARNING, std::ostringstream() << msg)
+#define LOG_CRITICAL(msg) Logger::get().write2(Logger::Type::CRITICAL, std::ostringstream() << msg)
 #define LOG_EXCEPTION(error) Logger::get().writeException(error)
 
 #ifdef DEV
-# define LOG_DEBUG(msg) Logger::get().write(Logger::Type::DEBUG, msg)
+# define LOG_DEBUG(msg) Logger::get().write2(Logger::Type::DEBUG, std::ostringstream() << msg)
 #else
 # define LOG_WARNING(msg)
 #endif
@@ -41,9 +41,9 @@ public:
         {
             file << "\n  ===============================================\n"
                 << "    End   Output log ( "
-                << Watch::getDate()
+                << Stopwatch::getDate()
                 << " at "
-                << Watch::getTime()
+                << Stopwatch::getTime()
                 << " ): "
                 << "\n  ===============================================\n\n";
             file.flush();
@@ -59,18 +59,48 @@ public:
         if (!file.good()) return;
         file << "  ===============================================\n"
             << "    Begin Output log ( "
-            << Watch::getDate()
+            << Stopwatch::getDate()
             << " at "
-            << Watch::getTime()
+            << Stopwatch::getTime()
             << " ): "
             << "\n  ===============================================\n\n";
         file.flush();
     }
 
+    void write2(Type type, std::ostringstream msg)
+    {
+        std::ostringstream os;
+        os << "[" << Stopwatch::getTime() << "][";
+        switch (type)
+        {
+        default:
+        case Logger::Type::INFO:
+            os << "INFO";
+            break;
+        case Logger::Type::DEBUG:
+            os << "DEBUG";
+            break;
+        case Logger::Type::WARNING:
+            os << "WARNING";
+            break;
+        case Logger::Type::CRITICAL:
+            os << "CRITICAL";
+            break;
+        }
+        os << "]: " << msg.str() << "\n";
+
+        std::cout << os.str();
+        if (file)
+        {
+            file << os.str();
+            file.flush();
+        }
+    }
+
     void write(Type type, const std::string &msg)
     {
         std::ostringstream os;
-        os << "[" << Watch::getTime() << "][";
+        os << "[" << Stopwatch::getTime() << "][";
         switch (type)
         {
         default:
