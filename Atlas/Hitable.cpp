@@ -5,7 +5,7 @@
 
 #include "Ray.h"
 
-bool Hitable::intersectRay(const Ray &ray, float min, float max) const
+bool atlas::Hitable::intersectRay(const Ray &ray, float min, float max) const
 {
 	float tmin;
 	float tmax;
@@ -46,12 +46,12 @@ bool Hitable::intersectRay(const Ray &ray, float min, float max) const
 }
 
 
-void Hitable::setBound(BoundType type, const glm::vec3 &value)
+void atlas::Hitable::setBound(BoundType type, const glm::vec3 &value)
 {
 	bounds[static_cast<uint8_t>(type)] = value;
 }
 
-const glm::vec3 &Hitable::getBound(BoundType type) const
+const glm::vec3 &atlas::Hitable::getBound(BoundType type) const
 {
 	return (bounds[static_cast<uint8_t>(type)]);
 }

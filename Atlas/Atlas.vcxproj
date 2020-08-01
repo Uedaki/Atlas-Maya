@@ -245,8 +245,12 @@
     <ClInclude Include="AreaLight.h" />
     <ClInclude Include="DisneyShader.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Hitable.h" />
+    <ClInclude Include="HitRecord.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="ShaderAttribute.h" />
     <ClInclude Include="ShaderConstant.h" />
     <ClInclude Include="ShaderGraph.h" />
@@ -258,6 +262,8 @@
   <ItemGroup>
     <ClCompile Include="DisneyShader.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Hitable.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

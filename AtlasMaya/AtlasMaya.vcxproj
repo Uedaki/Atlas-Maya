@@ -311,6 +311,7 @@ xcopy /d /s /i /f /y "$(ATLAS_BIN_PATH)\Atlas.dll" "$(SolutionDir)a.out\$(Projec
     <ClInclude Include="DisneyShaderNode.h" />
     <ClInclude Include="DisneyShaderSurface.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="MayaMesh.h" />
     <ClInclude Include="MayaNodeId.h" />
     <ClInclude Include="MayaShaderNetworkBuilder.h" />
     <ClInclude Include="pch.h" />

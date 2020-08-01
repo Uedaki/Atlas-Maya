@@ -6,22 +6,25 @@
 
 #include <stdint.h>
 
-struct Ray;
-
-class Hitable
+namespace atlas
 {
-public:
-	enum class BoundType : uint8_t
+	struct Ray;
+
+	class Hitable
 	{
-		LOWER_BOUND = 0,
-		UPPER_BOUND = 1
+	public:
+		enum class BoundType : uint8_t
+		{
+			LOWER_BOUND = 0,
+			UPPER_BOUND = 1
+		};
+
+		bool intersectRay(const Ray &ray, float min, float max) const;
+
+		void setBound(BoundType type, const glm::vec3 &value);
+		const glm::vec3 &getBound(BoundType type) const;
+
+	private:
+		glm::vec3 bounds[2];
 	};
-
-	bool intersectRay(const Ray &ray, float min, float max) const;
-
-	void setBound(BoundType type, const glm::vec3 &value);
-	const glm::vec3 &getBound(BoundType type) const;
-
-private:
-	glm::vec3 bounds[2];
-};
+}

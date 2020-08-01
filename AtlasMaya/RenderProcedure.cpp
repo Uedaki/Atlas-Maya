@@ -10,6 +10,8 @@
 #include <maya/MPlug.h>
 
 #include "Atlas/ShaderNetwork.h"
+
+#include "MayaMesh.h"
 #include "MayaShaderNetworkBuilder.h"
 #include "MayaNodeId.h"
 #include "MayaAreaLight.h"
@@ -63,23 +65,10 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 		{
 			MObject obj = it.currentItem();
 
-
-			LOG_DEBUG("Object: " << obj.apiTypeStr());
 			if (obj.apiType() == MFn::kMesh)
 			{
 				MFnMesh mesh(obj);
-				LOG_DEBUG("- name: " << mesh.name());
-
-				MObjectArray mShaderArray;
-				MIntArray mShaderIndices;
-				mesh.getConnectedShaders(0, mShaderArray, mShaderIndices);
-				for (uint32_t i = 0; i < mShaderArray.length(); i++)
-				{
-					size_t gra = networkBuilder.buildGraph(mShaderArray[i]);
-					glm::vec3 c = network.sampleGraph(gra);
-					LOG_DEBUG("output color (" << c.x << ", " << c.y << ", " << c.z << ")");
-
-				}
+				MayaMesh inst(mesh, networkBuilder);
 			}
 			else
 			{
