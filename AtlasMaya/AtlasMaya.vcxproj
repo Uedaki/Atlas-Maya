@@ -315,7 +315,7 @@ xcopy /d /s /i /f /y "$(ATLAS_BIN_PATH)\Atlas.dll" "$(SolutionDir)a.out\$(Projec
     <ClInclude Include="MayaShaderNetworkBuilder.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderProcedure.h" />
-    <ClInclude Include="Watch.h" />
+    <ClInclude Include="Stopwatch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisneyShaderNode.cpp" />

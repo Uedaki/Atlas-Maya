@@ -7,6 +7,7 @@
 #include <maya/MFnDagNode.h>
 #include <maya/MFnNumericAttribute.h>
 
+#include "Logger.h"
 #include "MayaNodeId.h"
 
 const MString AreaLightNode::name("AtlasAreaLight");
@@ -74,7 +75,7 @@ MStatus AreaLightNode::compute(const MPlug &plug, MDataBlock &block)
     exposure = block.inputValue(aExposure).asFloat();
     spread = block.inputValue(aSpread).asFloat();
 
-    std::cout << "Color: " << color << " intensity: " << intensity << " exposure: " << exposure << " spread: " << spread << std::endl;
+    LOG_DEBUG("Color: " << color << " intensity: " << intensity << " exposure: " << exposure << " spread: " << spread);
     return (MS::kSuccess);
 }
 
@@ -119,17 +120,6 @@ void AreaLightNode::fetchAttribute(MFnDependencyNode &plug, atlas::AreaLight &li
     float exposure = 0;
     float spread = 0;
 
-    //baseColor.x = plug.findPlug(aBaseColorR, false, &status).asFloat();
-    //CHECK_MSTATUS(status);
-
-    //baseColor.y = plug.findPlug(aBaseColorG, false, &status).asFloat();
-    //CHECK_MSTATUS(status);
-
-    //baseColor.z = plug.findPlug(aBaseColorB, false, &status).asFloat();
-    //CHECK_MSTATUS(status);
-
-    std::cout << plug.findPlug(aColor, false, &status).isArray() << std::endl;
-
     MPlug plugColor = plug.findPlug(aColor, false, &status);
     CHECK_MSTATUS(status);
     color.x = plugColor.child(0).asFloat();
@@ -150,7 +140,7 @@ void AreaLightNode::fetchAttribute(MFnDependencyNode &plug, atlas::AreaLight &li
     light.exposure = exposure;
     light.spread = spread;
 
-    std::cout << "Color: " << color << " intensity: " << intensity << " exposure: " << exposure << " spread: " << spread << std::endl;
+    LOG_DEBUG("Color: " << color << " intensity: " << intensity << " exposure: " << exposure << " spread: " << spread);
 }
 
 MHWRender::MPxGeometryOverride *AreaLightGeometry::creator(const MObject &obj)

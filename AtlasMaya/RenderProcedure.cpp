@@ -73,7 +73,6 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 				MObjectArray mShaderArray;
 				MIntArray mShaderIndices;
 				mesh.getConnectedShaders(0, mShaderArray, mShaderIndices);
-				//	std::cout << "nbr face " << mesh.numPolygons() << " nbr indice " << mShaderIndices.length() << std::endl;
 				for (uint32_t i = 0; i < mShaderArray.length(); i++)
 				{
 					size_t gra = networkBuilder.buildGraph(mShaderArray[i]);
@@ -88,6 +87,7 @@ MStatus RenderProcedure::doIt(const MArgList &args)
 
 				if (itNode.typeId().id() == MayaNodeId::AREA_LIGHT)
 				{
+					
 					atlas::AreaLight l;
 					AreaLightNode::fetchAttribute(itNode, l);
 				}

@@ -11,6 +11,7 @@
 #include "Atlas/ShaderNodeBuilder.h"
 
 #include "DisneyShaderNode.h"
+#include "Logger.h"
 
 namespace
 {
@@ -69,8 +70,9 @@ size_t MayaShaderNetworkBuilder::buildGraph(MObject shadingGroupObject)
 	size_t index;
 	if ((index = network.findShaderGraph(shadingGroup.name().asChar())) != -1)
 		return (index);
-	index = network.addShaderGraph(shadingGroup.name().asChar());
 
+	Stopwatch timer;
+	index = network.addShaderGraph(shadingGroup.name().asChar());
 	MObject surfaceAttribute = shadingGroup.attribute("surfaceShader");
 	MPlug surface(shadingGroupObject, surfaceAttribute);
 
@@ -94,7 +96,9 @@ size_t MayaShaderNetworkBuilder::buildGraph(MObject shadingGroupObject)
 		}
 
 		connectToGraph(index, srcNode, srcAttr);
-		std::cout << "Graph " << network.getShaderGraph(index).getName() << " linked to [" << srcNode << "]" << srcAttr << std::endl;
+		
+		timer.stop();
+		LOG_INFO("Shading graph \"" << srcNode << "\" created in " << timer.elapsed());
 	}
 
 	return (index);
@@ -129,7 +133,6 @@ void MayaShaderNetworkBuilder::connect(const std::string &src, const std::string
 	}
 
 	atlas::ShaderNetworkBuilder::connect(srcNode, srcAttr, dstNode, dstAttr);
-	std::cout << "Connecting [" << srcNode << "]" << srcAttr << " to [" << dstNode << "]" << dstAttr << std::endl;
 }
 
 void MayaShaderNetworkBuilder::buildConnection(MPlug nodePlug)
@@ -140,7 +143,6 @@ void MayaShaderNetworkBuilder::buildConnection(MPlug nodePlug)
 	if (doesNodeExist(node.name().asChar()))
 		return;
 
-	std::cout << "node " << node.name() << " (" << node.typeId().id() << ")" << std::endl;
 	if (link.find(node.typeId().id()) != link.end())
 	{
 		ShaderNodeFunctions shaderFunctions = link.at(node.typeId().id());
@@ -148,7 +150,6 @@ void MayaShaderNetworkBuilder::buildConnection(MPlug nodePlug)
 		atlas::ShaderNode &shader = addNode(node.name().asChar(), shaderFunctions.creator);
 
 		shaderFunctions.fetch(node, shader);
-		std::cout << "\\-> node created" << std::endl;
 	}
 
 	MPlugArray connections;
